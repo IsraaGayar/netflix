@@ -1,11 +1,43 @@
-<html>
-    <head>
+{% extends 'movies/base_layout.html' %}
 
-    </head>
-    <body>
-        <h1> Tasks Details {{taskId}} </h1>
+<!--{% block title %} task details {% endblock %}-->
+{% block mainblock %}
+
+        <h3> Tasks Details {{taskId}} </h3>
          <h1> Tasks Details {{taskName}} </h1>
          <h1> Tasks Details {{taskDescription}} </h1>
+
+{% endblock %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+
 <!--        <ul>-->
 <!--            {% for movie in tasklist %}-->
 <!--                <li>{{ movie.name }}</li>-->
@@ -13,5 +45,3 @@
 <!--                 <li>Sorry, no movies in this list.</li>-->
 <!--            {% endfor %}-->
 <!--        </ul>-->
-    </body>
-</html>

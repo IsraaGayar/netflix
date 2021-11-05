@@ -1,21 +1,31 @@
-<html>
-    <head>
+{% extends 'movies/base_layout.html' %}
 
-    </head>
-    <body>
-<!--        <h1> Tasks Details {{taskId}} </h1>-->
-<!--         <h1> Tasks Details {{taskName}} </h1>-->
-<!--         <h1> Tasks Details {{taskDescription}} </h1>-->
-        <ul>
-            {% for movie in tasklist %}
-                <li>{{ movie.name }}</li>
-                <a href="{% url 'taskdetails' movie.id %}"> view</a>
-                <a href="{% url 'taskupdate' movie.id %}"> update</a>
-                <a href="{% url 'taskdelete' movie.id %}"> delete</a>
+<!--{% block title %} task details {% endblock %}-->
+{% block mainblock %}
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">View</th>
+              <th scope="col">Update</th>
+              <th scope="col">delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for movie in tasklist %}
+            <tr>
+              <th scope="row">{{ movie.name }}</th>
+              <td>{{ movie.description  | truncatewords:6 }}</td>
+              <td><a href="{% url 'taskdetails' movie.id %}" class="btn btn-primary"> view</a></td>
+              <td><a href="{% url 'taskupdate' movie.id %}" class="btn btn-primary" > update</a></td>
+              <td><a href="{% url 'taskdelete' movie.id %}" class="btn btn-primary"> delete</a></td>
+            </tr>
 
             {% empty %}
-                 <li>Sorry, no movies in this list.</li>
+                 <tr>Sorry, no movies in this list.</tr>
             {% endfor %}
-        </ul>
-    </body>
-</html>
+          </tbody>
+        </table>
+{% endblock %}
