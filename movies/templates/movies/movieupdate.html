@@ -1,0 +1,15 @@
+{% extends 'movies/base_layout.html' %}
+
+<!--{% block title %} task details {% endblock %}-->
+{% block mainblock %}
+
+
+<form method="post" action="{% url 'mymovieupdate' movie.id %}">
+  {% csrf_token %}
+  {{ form.as_p}}
+
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'movies/base_layout.html' %}
+
+<!--{% block title %} task details {% endblock %}-->
+{% block mainblock %}
+
+        <p> Movie Name:{{Movie.name}} </p>
+         <p> Movie Details: {{Movie.description}} </p>
+         <p> Movie Likes: {{Movie.likes}} </p>
+         <p> Movie watch count:{{Movie.watchCount}} </p>
+         <p> Movie rate: {{Movie.rate}} </p>
+         <p> Movie creation date: {{Movie.creationDate}} </p>
+         <p> Movie production date: {{Movie.productionDate}} </p>
+
+
+{% endblock %}
+
+
+
+
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">View</th>
+              <th scope="col">Update</th>
+              <th scope="col">delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for movie in tasklist %}
+            <tr>
+              <th scope="row">{{ movie.name }}</th>
+              <td>{{ movie.description  | truncatewords:6 }}</td>
+              <td><a href="{% url 'taskdetails' movie.id %}" class="btn btn-primary"> view</a></td>
+              <td><a href="{% url 'taskupdate' movie.id %}" class="btn btn-primary" > update</a></td>
+              <td><a href="{% url 'taskdelete' movie.id %}" class="btn btn-primary"> delete</a></td>
+            </tr>
+
+            {% empty %}
+                 <tr>Sorry, no movies in this list.</tr>
+            {% endfor %}
+          </tbody>
+        </table>

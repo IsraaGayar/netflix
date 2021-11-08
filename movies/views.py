@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from .models import Movie
+from .forms import MovieForm
 
 # Create your views here.
 
@@ -78,3 +80,63 @@ def taskdelete(request,**prams):
     my_task_list.pop(task_index)
     taskList={'tasklist':my_task_list,}
     return tasklist(request)
+
+def MoviesView(request):
+    allMovies = Movie.objects.all()
+    print(allMovies)
+    return render(request, 'movies/movieList.html', context= {'allMovies': allMovies})
+
+def CreateMovie(request):
+    # myMovie= Movie(name='newmovie2',description='moviee', likes=0,watchCount=0,rate=0)
+    # myMovie.save()
+    form= MovieForm()
+    if request.method=='POST':
+        form= MovieForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('moviesview')
+        # print(request.POST['name'])
+        # myMovie= Movie(name= request.POST.get('name'),description=request.POST.get('decription'))
+        # myMovie.save()
+        # allMovies = Movie.objects.all()
+        # return render(request, 'movies/movieList.html', context={'allMovies': allMovies})
+
+    # allMovies = Movie.objects.all()
+    # allMovies = Movie.objects.all()
+    # print(allMovies)
+    return render(request, 'movies/moviecreate.html', context={'form': form} )
+    # return render(request, 'movies/moviecreate.html')
+
+def MovieDetails(request,**prams):
+
+    print(prams.get('id'))
+    myMovie=Movie.objects.get(id=prams.get('id'))
+    # print(myMovie.description)
+    return render(request, 'movies/moviedetails.html', context= {'Movie': myMovie})
+
+
+
+def MovieUpdate(request,**prams):
+    myMovie=Movie.objects.get(id=prams.get('id'))
+    form= MovieForm(instance=myMovie)
+    if request.method == 'POST':
+        form = MovieForm(data=request.POST, instance=myMovie)
+        if form.is_valid():
+            form.save()
+            return redirect('moviesview')
+
+
+    # print(prams.get('id'))
+    # myMovie = Movie.objects.get(id=prams.get('id'))
+    # myMovie.name='the hustle'
+    # myMovie.save()
+    return render(request, 'movies/movieupdate.html', context={'form': form, 'movie': myMovie} )
+
+
+def MovieDelete(request,**prams):
+    print(prams.get('id'))
+    myMovie = Movie.objects.get(id=prams.get('id')).delete()
+    # myMovie.name='the hustle'
+    # myMovie.save()
+    return redirect('moviesview')
+

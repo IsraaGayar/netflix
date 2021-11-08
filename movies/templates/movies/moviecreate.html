@@ -1,0 +1,57 @@
+{% extends 'movies/base_layout.html' %}
+
+<!--{% block title %} task details {% endblock %}-->
+{% block mainblock %}
+
+
+<form method="post" action="{% url 'createmovie' %}">
+  {% csrf_token %}
+  {{ form.as_p}}
+
+  {% comment %}
+<!--  <div class="form-group">-->
+<!--    <label for="exampleInputEmail1">Movie name</label>-->
+<!--    <input type="text" name='name' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">-->
+<!--    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+<!--  </div>-->
+<!--  <div class="form-group">-->
+<!--    <label for="exampleInputPassword1">description</label>-->
+<!--    <input type="text" name="decription" class="form-control" id="exampleInputPassword1" placeholder="Password">-->
+
+<!--  </div>-->
+    {% endcomment %}
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
+
+
+
+
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">View</th>
+              <th scope="col">Update</th>
+              <th scope="col">delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for movie in tasklist %}
+            <tr>
+              <th scope="row">{{ movie.name }}</th>
+              <td>{{ movie.description  | truncatewords:6 }}</td>
+              <td><a href="{% url 'taskdetails' movie.id %}" class="btn btn-primary"> view</a></td>
+              <td><a href="{% url 'taskupdate' movie.id %}" class="btn btn-primary" > update</a></td>
+              <td><a href="{% url 'taskdelete' movie.id %}" class="btn btn-primary"> delete</a></td>
+            </tr>
+
+            {% empty %}
+                 <tr>Sorry, no movies in this list.</tr>
+            {% endfor %}
+          </tbody>
+        </table>

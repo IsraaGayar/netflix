@@ -1,0 +1,34 @@
+{% extends 'movies/base_layout.html' %}
+
+{% block title %} task details {% endblock %}
+{% block mainblock %}
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">View</th>
+              <th scope="col">Update</th>
+              <th scope="col">delete</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for movie in allMovies %}
+            <tr>
+              <th scope="row">{{ movie.name }}</th>
+              <td>{{ movie.description  | truncatewords:6 }}</td>
+               <td><a href="{% url 'mymoviedetails' movie.id %}" class="btn btn-primary"> view</a></td>
+              <td><a href="{% url 'mymovieupdate' movie.id %}" class="btn btn-primary" > update</a></td>
+              <td><a href="{% url 'mymoviedelete' movie.id %}" class="btn btn-primary"> delete</a></td>
+            </tr>
+            {% empty %}
+          <p>Sorry, no movies in this list.</p>
+
+            {% endfor %}
+          </tbody>
+        </table>
+        <span ><a href="{% url 'createmovie' %}" class="btn btn-primary"> Create </a></span>
+
+
+{% endblock %}
