@@ -111,7 +111,8 @@ def MovieDetails(request,**prams):
 
     print(prams.get('id'))
     myMovie=Movie.objects.get(id=prams.get('id'))
-    # print(myMovie.description)
+    print(myMovie.actors.all())
+    print(myMovie.review_set.all())
     return render(request, 'movies/moviedetails.html', context= {'Movie': myMovie})
 
 

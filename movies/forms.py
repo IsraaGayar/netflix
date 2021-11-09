@@ -5,3 +5,4 @@ class MovieForm(ModelForm):
     class Meta:
         model = Movie
         fields = '__all__'
+        # widget={'name': forms.TextInput}

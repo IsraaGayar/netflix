@@ -8,12 +8,18 @@ class Actor(models.Model):
     age = models.IntegerField(default=0)
 
     def __str__(self):
-        return  self.firstname
+        return  self.firstname+' '+self.lastname
     class Meta:
         ordering= ('firstname',)
 
 class Review(models.Model):
-    pass
+    comment = models.TextField(default='my commentt:')
+    creationDate= models.DateField(auto_now_add=True)
+    movie= models.ForeignKey('Movie', on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return 'review for {}'.format(self.movie)
+
 
 
 class Movie(models.Model):
@@ -25,6 +31,7 @@ class Movie(models.Model):
     productionDate= models.DateField(null=True, blank=True)
     creationDate= models.DateField(auto_now_add=True)
     modificationDate= models.DateField(auto_now=True)
+    actors= models.ManyToManyField('Actor')
     # poster= models.ImageField(upload_to='', null=True, blank=True)
     # video= models.ImageField(upload_to='', null=True, blank=True)
 
