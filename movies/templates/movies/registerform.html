@@ -1,0 +1,46 @@
+{% extends 'movies/base_layout.html' %}
+
+<!--{% block title %} task details {% endblock %}-->
+{% block mainblock %}
+
+<div class="container">
+
+      <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+           <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>First Name</label>
+              <input type="text" class="form-control" name="first_name" placeholder="first name">
+            </div>
+            <div class="form-group col-md-6">
+              <label >last name</label>
+              <input type="text" class="form-control" name="last_name" placeholder="last name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label >username</label>
+              <input type="text" class="form-control" name="username" placeholder="username">
+            </div>
+            <div class="form-group col-md-6">
+              <label >Email</label>
+              <input type="email" class="form-control" name="email" placeholder="Email">
+            </div>
+
+          </div>
+           <div class="form-row">
+            <div class="form-group col-md-6">
+              <label >Password</label>
+              <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+             <div class="form-group col-md-6">
+              <label > Confirm Password</label>
+              <input type="password" class="form-control" name="password2" placeholder="Password">
+            </div>
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+  </div>
+
+{% endblock %}

@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Movie
 from .forms import MovieForm
+from django.contrib import auth
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -140,4 +142,41 @@ def MovieDelete(request,**prams):
     # myMovie.name='the hustle'
     # myMovie.save()
     return redirect('moviesview')
+
+def register(request):
+    if request.method=='POST':
+        first_name= request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        username = request.POST['username']
+        password= request.POST['password']
+        password2= request.POST['password2']
+
+        if (password==password2):
+            user= User.objects.create_user(username=username, first_name=first_name,last_name=last_name,  email=email, password=password)
+            user.save()
+            auth.login(request,user)
+            return redirect('tasklist')
+
+    return render(request, 'movies/registerform.html')
+
+def loginform(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user=auth.authenticate(username=username,password=password)
+
+        if user is not None:
+            auth.login(request,user)
+            return redirect('tasklist')
+
+    return render(request, 'movies/loginform.html')
+
+def logoutform(request):
+    if request.method == 'POST':
+        # user=auth.authenticate(username=username,password=password)
+        #
+        # if user is not None:
+        auth.logout(request)
+        return redirect('tasklist')
 
