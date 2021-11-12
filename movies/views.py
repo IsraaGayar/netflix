@@ -4,6 +4,7 @@ from .models import Movie
 from .forms import MovieForm
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -96,6 +97,9 @@ def CreateMovie(request):
         form= MovieForm(request.POST)
         if form.is_valid():
             form.save()
+            send_mail('Movie created ', 'this mail to notify you that new moview have been created',
+                      'sender@mail.com', ['israa.techno@gmail.com', 'israa.elgayar1991@gmail.com'], fail_silently=False
+                      )
             return redirect('moviesview')
         # print(request.POST['name'])
         # myMovie= Movie(name= request.POST.get('name'),description=request.POST.get('decription'))
@@ -167,6 +171,7 @@ def loginform(request):
         user=auth.authenticate(username=username,password=password)
 
         if user is not None:
+            print(user.username,user.first_name, user.last_name)
             auth.login(request,user)
             return redirect('tasklist')
 
